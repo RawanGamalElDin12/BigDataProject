@@ -1,5 +1,4 @@
 
-
 # Load the dplyr package
 library(dplyr)
 
@@ -23,3 +22,4 @@ for (i in seq_along(unique_depts_time)) {
 }
 
 dataset$departure_time <- dept_time
+head(dataset)
