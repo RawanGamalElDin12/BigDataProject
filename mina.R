@@ -33,4 +33,5 @@ barplot(ArrivaltimeTable , main="Frequency of Arrival Time",xlab = "Arrival Time
 Stops_table<-table(dataset$stops)
 barplot(Stops_table , main="Frequency of Stops",xlab = "Stops",ylab="Frequency", col=rainbow(6))
 
-
+#reset
+par(mfrow = c(1, 1))
