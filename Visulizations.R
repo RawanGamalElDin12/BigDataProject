@@ -26,7 +26,13 @@ legend("topright",
        legend = names(airline_counts), 
        fill = colors, 
        cex = 1.5)
+############################# airline frequency ############################# 
+barplot(table(dataset$airline),xlab = 'Airlines', ylab = 'Counts')
 
+#the following plot is with normalization: 
+barplot(prop.table(table(dataset$airline)))
+
+##############################################
 #we have 1561 unique flight
 table(dataset$flight)
 print(length(unique(dataset$flight)))
