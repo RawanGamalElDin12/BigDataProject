@@ -130,6 +130,7 @@ unique(data1$price)
 
 ##########################Pearson Correlation Coefficient map##############################################
 data1 <- data1[, -1]
+#install.packages("reshape2")
 library(reshape2)
 
 cor_df <- round(cor(data1), 2)
@@ -145,6 +146,62 @@ ggplot(data = melted_cor, aes(x=Var1, y=Var2,
   geom_tile() +
   geom_text(aes(Var2, Var1, label = value),
             color = "black", size = 4)
+
+#################### linear regression model with all features #################
+
+#install.packages("party")
+library(party)
+regressionData <- data1
+ind<-sample(2,nrow(regressionData),prob=c(0.7,0.3),replace=TRUE)
+train.regressionData <- regressionData[ind==1,]
+test.regressionData <- regressionData[ind==2,]
+
+#test.regressionData
+
+lm_model <- lm(train.regressionData$price ~ ., data = train.regressionData)
+predictions <- predict(lm_model, newdata = test.regressionData)
+predictions
+
+######### evaluation of regression model with accuracy=90.2% ###########
+
+#install.packages("Metrics")
+library(Metrics)
+rmse <- rmse(predictions, test.regressionData$price)
+rmse
+mse = rmse*rmse
+mse
+
+summary(lm_model)
+summary(lm_model)$r.squared
+
+regression_accuracy = (summary(lm_model)$r.squared)*100
+regression_accuracy
+
+
+####################### reg model with best features with accuracy=89.26% ###################
+
+lm_model2 <- lm(train.regressionData$price ~ train.regressionData$airline+train.regressionData$class+train.regressionData$stops+train.regressionData$duration, data = train.regressionData)
+predictions <- predict(lm_model2, newdata = test.regressionData)
+predictions
+
+######### evaluation of regression model ###########
+
+#install.packages("Metrics")
+library(Metrics)
+rmse <- rmse(predictions, test.regressionData$price)
+rmse
+mse = rmse*rmse
+mse
+
+summary(lm_model2)
+summary(lm_model2)$r.squared
+
+regression_accuracy = (summary(lm_model2)$r.squared)*100
+regression_accuracy
+
+
+
+
 
 
 
