@@ -1,6 +1,10 @@
 library(dplyr)
 data1 <- read.csv("Clean_Dataset.csv")
 
+####delete id and flight columns########
+data1 <- data1[, -3]
+data1 <- data1[, -1]
+
 #######################################################################################
 # Calculate mean target variable by source city
 means_by_sourceCity <- data1 %>% 
@@ -82,7 +86,6 @@ data1$class <- sapply(data1$class, function(x) {
   means_by_class$mean_price[means_by_class$`data1$class` == x]
 })
 
-data1 <- data1[, -3]
 
 
 data1
@@ -178,7 +181,7 @@ regression_accuracy = (summary(lm_model)$r.squared)*100
 regression_accuracy
 
 
-####################### reg model with best features with accuracy=89.26% ###################
+####################### reg model with best features with accuracy=89.27% ###################
 
 lm_model2 <- lm(train.regressionData$price ~ train.regressionData$airline+train.regressionData$class+train.regressionData$stops+train.regressionData$duration, data = train.regressionData)
 predictions <- predict(lm_model2, newdata = test.regressionData)
@@ -201,6 +204,26 @@ regression_accuracy
 
 
 
+####################### reg model with best features with accuracy=88.29% ###################
+
+lm_model3 <- lm(train.regressionData$price ~ train.regressionData$airline+train.regressionData$class, data = train.regressionData)
+predictions <- predict(lm_model3, newdata = test.regressionData)
+predictions
+
+######### evaluation of regression model ###########
+
+#install.packages("Metrics")
+library(Metrics)
+rmse <- rmse(predictions, test.regressionData$price)
+rmse
+mse = rmse*rmse
+mse
+
+summary(lm_model3)
+summary(lm_model3)$r.squared
+
+regression_accuracy = (summary(lm_model3)$r.squared)*100
+regression_accuracy
 
 
 
