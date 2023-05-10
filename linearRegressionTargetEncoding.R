@@ -112,4 +112,22 @@ data1$class <- minMax(data1$class)
 unique(data1$class)
 
 
+data1$airline <- minMax(data1$airline)
+unique(data1$airline)
+
+
+data1$days_left <- minMax(data1$days_left)
+unique(data1$days_left)
+
+
+data1$duration <- minMax(data1$duration)
+unique(data1$duration)
+
+data1$price <- minMax(data1$price)
+unique(data1$price)
+
+
+
+
+
 
