@@ -75,7 +75,7 @@ means_by_class <- data1 %>%
   group_by(data1$class) %>% 
   summarise(mean_price = mean(price))
 
-install.packages("caret")
+#install.packages("caret")
 means_by_class
 # Replace category with mean target variable
 data1$class <- sapply(data1$class, function(x) {
@@ -86,3 +86,30 @@ data1 <- data1[, -3]
 
 
 data1
+####################### min-max normalization function ####################### 
+
+minMax <- function(y){
+  scaled_column <- (y - min(y)) / (max(y) - min(y))
+  return(scaled_column)
+}
+
+data1$source_city <- minMax(data1$source_city)
+unique(data1$source_city)
+
+data1$departure_time <- minMax(data1$departure_time)
+unique(data1$departure_time)
+
+data1$stops <- minMax(data1$stops)
+unique(data1$stops)
+
+data1$arrival_time <- minMax(data1$arrival_time)
+unique(data1$arrival_time)
+
+data1$destination_city <- minMax(data1$destination_city)
+unique(data1$destination_city)
+
+data1$class <- minMax(data1$class)
+unique(data1$class)
+
+
+
