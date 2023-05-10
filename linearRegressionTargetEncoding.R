@@ -130,14 +130,17 @@ unique(data1$price)
 
 ##########################Pearson Correlation Coefficient map##############################################
 data1 <- data1[, -1]
+library(reshape2)
 
-Var1 <- data1$airline
-Var2 <- data1$price
+cor_df <- round(cor(data1), 2)
 
-data1
+melted_cor <- melt(cor_df)
+
+melted_cor
+
 
 library(ggplot2)
-ggplot(data = data1, aes(x=Var1, y=Var2,
+ggplot(data = melted_cor, aes(x=Var1, y=Var2,
                                    fill=value)) +
   geom_tile() +
   geom_text(aes(Var2, Var1, label = value),
