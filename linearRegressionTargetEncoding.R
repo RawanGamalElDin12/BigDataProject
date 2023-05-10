@@ -128,6 +128,34 @@ unique(data1$price)
 
 
 
+##########################Pearson Correlation Coefficient map##############################################
+data1 <- data1[, -1]
+
+Var1 <- data1$airline
+Var2 <- data1$price
+
+data1
+
+library(ggplot2)
+ggplot(data = data1, aes(x=Var1, y=Var2,
+                                   fill=value)) +
+  geom_tile() +
+  geom_text(aes(Var2, Var1, label = value),
+            color = "black", size = 4)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
