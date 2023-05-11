@@ -75,6 +75,8 @@ print(length(unique(dataset$flight)))
 
 
 
+par(mfrow=c(1,3))
+
 #boxplot of durations column
 boxplot(dataset$duration, main="Duration boxplot", col="#a2d2ff")
 max(dataset$duration)
@@ -88,16 +90,21 @@ min(dataset$days_left)
 median(dataset$days_left)
 
 #boxplot of price
-boxplot(dataset$price, main="Days Left boxplot", col="#a2d2ff")
+boxplot(dataset$price, main="Price boxplot", col="#a2d2ff")
 max(dataset$price)
 min(dataset$price)
 median(dataset$price)
 
+par(mfrow=c(1,1))
+
+
+par(mfrow=c(1,2))
 #Histogram of flight prices
 hist(dataset$price, main="histogram of flight prices",xlab="Price")
 
 #density plot of flight prices
 plot(density(dataset$price), main="Density plot of Price", xlab="Price")
+par(mfrow=c(1,1))
 
 
 #################Target Variable Analysis######################3
@@ -122,7 +129,7 @@ barplot(height = mean_price$price,
 
 legend("topright", legend = c("Buisness", "Economy"), fill = c("#00b4d8", "#ffc8dd"))
 
-##################################################################33
+#################################################################
 # calculate the average price for each class
 avg_price <- aggregate(dataset$price, by = list(dataset$class), FUN = mean)
 avg_price
@@ -152,13 +159,15 @@ plot(avg_pricess$duration, avg_pricess$price,
 
 #############################################################
 par(mfrow=c(1,2))
-# calculate the average price for each departue time
+# calculate the average price for each departure time
 avg_price <- aggregate(dataset$price, by = list(dataset$departure_time), FUN = mean)
 avg_price
 # create a barplot of average price per depart time
 barplot(avg_price$x, names.arg = avg_price$Group.1, 
         xlab = "Departure Time", ylab = "Average Price", 
         main = "Average Flight Price by Departure Time", col="blue")
+
+par(mfrow=c(1,1))
 
 #############################
 # calculate the average price for each arrival time
