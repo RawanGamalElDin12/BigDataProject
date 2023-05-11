@@ -1,7 +1,6 @@
 dataset<-read.csv("Clean_Dataset.csv")
 head(dataset)
 
-dev.new(width = 10, height = 8)
 
 par(mfrow=c(3,3))
 #################
@@ -22,7 +21,7 @@ table(data$airline)
 
 #############
 departuretimeTable<-table(dataset$departure_time)
-barplot(departureTimeTable , main="Frequency of Departure Time",xlab = "Departure Time",ylab="Frequency", col=rainbow(6))
+barplot(departuretimeTable , main="Frequency of Departure Time",xlab = "Departure Time",ylab="Frequency", col=rainbow(6))
 
 #############
 ArrivaltimeTable<-table(dataset$arrival_time)
