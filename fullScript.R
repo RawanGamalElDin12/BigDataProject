@@ -223,15 +223,6 @@ boxplot(price ~ destination_city , data = dataset,
 
 par(mfrow= c(1,1))
 
-########################################################
-
-avg_price <- aggregate(dataset$price, by = list(dataset$stops), FUN = mean)
-avg_price
-# create a barplot of average price per number of stops
-barplot(avg_price$x, names.arg = avg_price$Group.1, 
-        xlab = "No. of Stops", ylab = "Average Price", 
-        main = "Average Flight Price by number of stops", col= "red")
-
 #############################number of stops column visualization######################
 par(mfrow= c(1,2))
 
