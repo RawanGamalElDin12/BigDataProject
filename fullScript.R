@@ -8,7 +8,6 @@ barplot(numberOfOccurence,main = "number of occurence of source city",ylim = c(0
 ###############
 numberOfOccurencedest<-table(dataset$destination_city)
 barplot(numberOfOccurencedest,main = "number of occurence of destination city",ylim = c(0,70000),col =" blue")
-
 #############
 classtable<-table(dataset$class)
 barplot(classtable/10000 ,main="frequency of economy and business flights",xlab = " flight type", ylab = "number of reservations (x10000)",ylim = c(0,30),col=rainbow((6)))
@@ -58,15 +57,10 @@ percentages <- prop.table(airline_counts) * 100
 # Create a pie chart for the airline column
 pie(airline_counts, labels = paste0(names(airline_counts), ": ", round(percentages, 1), "%"),col =colors, main="Airlines Percentages")
 #add legend
-legend("topright", 
+legend("bottomleft", 
        legend = names(airline_counts), 
        fill = colors, 
        cex = 1.5)
-############################# airline frequency ############################# 
-barplot(table(dataset$airline),xlab = 'Airlines', ylab = 'Counts')
-
-#the following plot is with normalization: 
-barplot(prop.table(table(dataset$airline)))
 
 ##############################################
 #we have 1561 unique flight
@@ -167,7 +161,6 @@ barplot(avg_price$x, names.arg = avg_price$Group.1,
         xlab = "Departure Time", ylab = "Average Price", 
         main = "Average Flight Price by Departure Time", col="blue")
 
-par(mfrow=c(1,1))
 
 #############################
 # calculate the average price for each arrival time
@@ -211,17 +204,21 @@ barplot(avg_price$x, names.arg = avg_price$Group.1,
         xlab = "Destination City", ylab = "Average Price", 
         main = "Average Flight Price by Destination City", col= "red")
 
-################################################3
+
+
+################################################
+
+boxplot(price ~ source_city, data = dataset, 
+        xlab = "Source City", ylab = "Price", 
+        main = "Source City vs. Ticket Price", 
+        col = "skyblue", border = "darkblue")
 
 boxplot(price ~ destination_city , data = dataset, 
         xlab = "Departure City", ylab = "Price", 
         main = "Departure City vs. Ticket Price", 
         col = "skyblue", border = "darkblue")
 
-boxplot(price ~ source_city, data = dataset, 
-        xlab = "Source City", ylab = "Price", 
-        main = "Source City vs. Ticket Price", 
-        col = "skyblue", border = "darkblue")
+
 
 
 par(mfrow= c(1,1))
@@ -232,8 +229,8 @@ avg_price <- aggregate(dataset$price, by = list(dataset$stops), FUN = mean)
 avg_price
 # create a barplot of average price per number of stops
 barplot(avg_price$x, names.arg = avg_price$Group.1, 
-        xlab = "Destination City", ylab = "Average Price", 
-        main = "Average Flight Price by Destination City", col= "red")
+        xlab = "No. of Stops", ylab = "Average Price", 
+        main = "Average Flight Price by number of stops", col= "red")
 
 #############################number of stops column visualization######################
 par(mfrow= c(1,2))
