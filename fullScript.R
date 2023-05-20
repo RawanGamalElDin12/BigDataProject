@@ -109,7 +109,7 @@ avg_price
 barplot(avg_price$x, names.arg = avg_price$Group.1, 
         xlab = "Airline", ylab = "Average Price", 
         main = "Average Flight Price by Airline", col= rainbow(6))
-
+###----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###################################################################################
 # create a bar plot of mean prices by airline and class
 mean_price <- aggregate(price ~ airline + class, data = dataset, FUN = mean)
