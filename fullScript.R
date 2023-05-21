@@ -1,6 +1,14 @@
 dataset<-read.csv("Clean_Dataset.csv")
 head(dataset)
 
+
+######### identifying categorical features ###############
+names(dataset[ ,sapply(dataset, is.character)])
+dataset[ ,sapply(dataset, is.character)]
+
+######### identifying missing values ###############
+sum(is.na(dataset))
+
 par(mfrow=c(3,3))
 #################
 numberOfOccurence<-table(dataset$source_city)
@@ -143,13 +151,18 @@ plot(avg_prices$days_left, avg_prices$price,
 
 
 ######################################
-avg_pricess <- aggregate(price ~ duration, data = dataset, FUN = mean)
-avg_pricess
-# Create a scatterplot of the average prices against the duration of the flight
-plot(avg_pricess$duration, avg_pricess$price, 
-     xlab = "Duration", ylab = "Average Price", 
-     main = "Average Flight Price by Duration", col="blue", pch =16)
 
+#scatterplot for durations vs price based on buinsess class
+# Define a vector of colors to use for each class
+
+class_colors <- ifelse(dataset$class == "Economy", "red", "blue")
+
+# Create the scatterplot
+plot(dataset$duration, dataset$price, col = class_colors,
+     xlab = "Duration", ylab = "Price", main = "Scatterplot of Duration vs Price based on Class")
+
+# Add a legend
+legend("topright", legend = unique(dataset$class), fill = unique(class_colors))
 
 #############################################################
 par(mfrow=c(1,2))
@@ -340,7 +353,8 @@ data1$class <- sapply(data1$class, function(x) {
   means_by_class$mean_price[means_by_class$`data1$class` == x]
 })
 
-
+#checking all data is numeric
+names(data1[ ,sapply(data1, is.numeric)])
 
 data1
 ####################### min-max normalization function ####################### 
@@ -386,11 +400,12 @@ unique(data1$price)
 
 
 ##########################Pearson Correlation Coefficient map##############################################
-data1 <- data1[, -1]
 #install.packages("reshape2")
 library(reshape2)
 
 cor_df <- round(cor(data1), 2)
+
+cor_df
 
 melted_cor <- melt(cor_df)
 
